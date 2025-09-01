@@ -9,7 +9,8 @@ export default function HomePage() {
         Adaptable Math and Computer Science undergraduate with experience in full-stack development, Web3, and ML.
         Passionate about building scalable systems and high-impact tech solutions.
       </p>
-      <div className="mt-6 flex gap-4">
+
+      <div className="mt-6 flex gap-4 flex-wrap">
         <a href="/projects" className="px-4 py-2 bg-indigo-600 text-white rounded-lg">View Projects</a>
         <a href="/resume" className="px-4 py-2 border rounded-lg">Download Resume</a>
       </div>
