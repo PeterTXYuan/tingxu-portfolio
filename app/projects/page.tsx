@@ -35,6 +35,13 @@ export default function ProjectsPage() {
       data efficiently and securely. Unfortunately, the source code was completely local and was left in\
       my old laptop.",
     },
+    {
+      title: "Personal Protfolio Website",
+      subtitle: "Aug 2025 - Sep 2025",
+      description: "This website you are looking at.",
+      details: "Decided to create my own website all by myself summer 2025. The github repo is set to public: ",
+      links: [{ label: "Website Github Repo", url:"https://github.com/PeterTXYuan/tingxu-portfolio" }]
+    }
   ];
 
   return (
