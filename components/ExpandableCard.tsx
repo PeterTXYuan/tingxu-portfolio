@@ -1,13 +1,13 @@
 'use client';
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, JSX } from "react";
 
 interface ExpandableCardProps {
   title: string;
   subtitle?: string;
   description: string;
-  details?: string;
+  details?: string | JSX.Element;
   links?: { label: string; url: string }[];
   images?: string[]; 
   expanded: boolean;
@@ -52,7 +52,7 @@ export default function ExpandableCard({
               transition={{ duration: 0.3 }}
               className="mt-3"
             >
-              {details && <p className="text-gray-600 mb-3 whitespace-pre-line">{details}</p>}
+              {details && <div className="text-gray-600 mb-3 whitespace-pre-line">{details}</div>}
 
               {images && images.length > 0 && (
                 <div className="grid grid-cols-3 gap-2 mt-3">
