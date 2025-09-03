@@ -1,3 +1,5 @@
+import PhotoWall from "@/components/PhotoWall";
+
 export default function HomePage() {
   return (
     <main className="prose mx-auto p-6">
@@ -9,6 +11,8 @@ export default function HomePage() {
         Adaptable Math and Computer Science undergraduate with experience in full-stack development, Web3, and ML.
         Passionate about building scalable systems and high-impact tech solutions.
       </p>
+
+      <PhotoWall />
 
       <div className="mt-6 flex gap-4 flex-wrap">
         <a href="/projects" className="px-4 py-2 bg-indigo-600 text-white rounded-lg">View Projects</a>
