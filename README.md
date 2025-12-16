@@ -1,36 +1,126 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Tingxu Yuan – Personal Portfolio Website
 
-## Getting Started
+This repository contains the source code for my personal portfolio website, built to showcase my projects, experience, and background as a Computer Science / ACMS undergraduate at the University of Washington.
 
-First, run the development server:
+The site is designed to be fast, readable, and maintainable, while demonstrating real-world frontend engineering practices.
 
-```bash
+🔗 Live site: https://tingxu-portfolio-1td7.vercel.app/
+
+Tech Stack
+
+Framework: Next.js (App Router)
+
+Styling: Tailwind CSS
+
+Content: MDX (for Projects, Experience, Skills, Contact)
+
+Animation: Framer Motion
+
+Deployment: Vercel
+
+Language: TypeScript
+
+Features
+
+App Router–based routing
+
+File-system routing (/projects, /experience, /skills, /contact, /resume)
+
+MDX-driven content
+
+Easy-to-edit markdown pages with React component support
+
+Expandable card UI
+
+Click-to-expand cards for Projects and Experience
+
+Smooth animations using Framer Motion
+
+Image gallery & preview
+
+Multiple images per card with modal-style preview
+
+PDF hosting
+
+Resume and research papers served from /public
+
+Responsive design
+
+Fully usable on desktop and mobile
+
+Clean navigation
+
+Active route highlighting in the navbar
+
+Project Structure
+.
+├── app/
+│   ├── layout.tsx        # Root layout & navigation
+│   ├── page.tsx          # Home page
+│   ├── projects/         # Projects page
+│   ├── experience/       # Experience page
+│   ├── skills/           # Skills page (MDX)
+│   ├── contact/          # Contact page (MDX)
+│   └── resume/           # Resume page
+│
+├── components/
+│   └── ExpandableCard.tsx
+│
+├── content/
+│   ├── projects/         # Project MDX content
+│   └── experience/       # Experience MDX content
+│
+├── public/
+│   ├── images/           # Images used in cards
+│   └── pdfs/             # Resume & research PDFs
+│
+├── styles/
+│   └── globals.css
+│
+└── README.md
+
+Running Locally
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The site will be available at http://localhost:3000.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Why This Architecture?
 
-## Learn More
+Next.js App Router for scalable routing and modern React patterns
 
-To learn more about Next.js, take a look at the following resources:
+MDX to separate content from layout while retaining flexibility
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Reusable UI components to reduce duplication and improve maintainability
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Client-only interactivity isolated where needed ("use client")
 
-## Deploy on Vercel
+Static assets in /public for reliable deployment without missing files
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This setup mirrors how production-grade frontend projects are structured.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Future Improvements
+
+Dark mode toggle
+
+Blog section (MDX-based)
+
+SEO metadata per page
+
+Lighthouse performance tuning
+
+Analytics (privacy-friendly)
+
+Author
+
+Tingxu Yuan
+ACMS @ University of Washington
+Aspiring Software Engineer
+
+GitHub: https://github.com/PeterTXYuan
+
+LinkedIn: https://www.linkedin.com/in/tingxu-yuan-a2bab5333/
