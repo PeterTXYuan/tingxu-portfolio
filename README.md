@@ -1,58 +1,52 @@
-Tingxu Yuan – Personal Portfolio Website
+# Tingxu Yuan – Personal Portfolio Website
 
 This repository contains the source code for my personal portfolio website, built to showcase my projects, experience, and background as a Computer Science / ACMS undergraduate at the University of Washington.
 
 The site is designed to be fast, readable, and maintainable, while demonstrating real-world frontend engineering practices.
 
-🔗 Live site: https://tingxu-portfolio-1td7.vercel.app/
+🔗 **Live site:** (add your Vercel link here once deployed)
 
-Tech Stack
+---
 
-Framework: Next.js (App Router)
+## Tech Stack
 
-Styling: Tailwind CSS
+- **Framework:** Next.js (App Router)
+- **Styling:** Tailwind CSS
+- **Content:** MDX (for Projects, Experience, Skills, Contact)
+- **Animation:** Framer Motion
+- **Deployment:** Vercel
+- **Language:** TypeScript
 
-Content: MDX (for Projects, Experience, Skills, Contact)
+---
 
-Animation: Framer Motion
+## Features
 
-Deployment: Vercel
+- **App Router–based routing**
+  - File-system routing (`/projects`, `/experience`, `/skills`, `/contact`, `/resume`)
 
-Language: TypeScript
+- **MDX-driven content**
+  - Easy-to-edit markdown pages with React component support
 
-Features
+- **Expandable card UI**
+  - Click-to-expand cards for Projects and Experience
+  - Smooth animations using Framer Motion
 
-App Router–based routing
+- **Image gallery & preview**
+  - Multiple images per card with modal-style preview
 
-File-system routing (/projects, /experience, /skills, /contact, /resume)
+- **PDF hosting**
+  - Resume and research papers served from `/public`
 
-MDX-driven content
+- **Responsive design**
+  - Fully usable on desktop and mobile
 
-Easy-to-edit markdown pages with React component support
+- **Clean navigation**
+  - Active route highlighting in the navbar
 
-Expandable card UI
+---
 
-Click-to-expand cards for Projects and Experience
-
-Smooth animations using Framer Motion
-
-Image gallery & preview
-
-Multiple images per card with modal-style preview
-
-PDF hosting
-
-Resume and research papers served from /public
-
-Responsive design
-
-Fully usable on desktop and mobile
-
-Clean navigation
-
-Active route highlighting in the navbar
-
-Project Structure
+## Project Structure
+```
 .
 ├── app/
 │   ├── layout.tsx        # Root layout & navigation
@@ -78,49 +72,50 @@ Project Structure
 │   └── globals.css
 │
 └── README.md
+```
 
-Running Locally
+---
+
+## Running Locally
+```bash
 # Install dependencies
 npm install
 
 # Start development server
 npm run dev
+```
 
+The site will be available at `http://localhost:3000`.
 
-The site will be available at http://localhost:3000.
+---
 
-Why This Architecture?
+## Why This Architecture?
 
-Next.js App Router for scalable routing and modern React patterns
-
-MDX to separate content from layout while retaining flexibility
-
-Reusable UI components to reduce duplication and improve maintainability
-
-Client-only interactivity isolated where needed ("use client")
-
-Static assets in /public for reliable deployment without missing files
+- **Next.js App Router** for scalable routing and modern React patterns
+- **MDX** to separate content from layout while retaining flexibility
+- **Reusable UI components** to reduce duplication and improve maintainability
+- **Client-only interactivity** isolated where needed (`"use client"`)
+- **Static assets in `/public`** for reliable deployment without missing files
 
 This setup mirrors how production-grade frontend projects are structured.
 
-Future Improvements
+---
 
-Dark mode toggle
+## Future Improvements
 
-Blog section (MDX-based)
+- Dark mode toggle
+- Blog section (MDX-based)
+- SEO metadata per page
+- Lighthouse performance tuning
+- Analytics (privacy-friendly)
 
-SEO metadata per page
+---
 
-Lighthouse performance tuning
+## Author
 
-Analytics (privacy-friendly)
-
-Author
-
-Tingxu Yuan
-ACMS @ University of Washington
+**Tingxu Yuan**  
+ACMS @ University of Washington  
 Aspiring Software Engineer
 
-GitHub: https://github.com/PeterTXYuan
-
-LinkedIn: https://www.linkedin.com/in/tingxu-yuan-a2bab5333/
+- **GitHub:** [https://github.com/PeterTXYuan](https://github.com/PeterTXYuan)
+- **LinkedIn:** [https://www.linkedin.com/in/tingxu-yuan-a2bab5333/](https://www.linkedin.com/in/tingxu-yuan-a2bab5333/)
