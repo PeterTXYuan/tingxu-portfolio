@@ -14,6 +14,7 @@ export default function PhotoWall() {
     "/images/selfie5.jpg",
     "/images/selfie6.jpg",
     "/images/selfie7.jpg",
+    "/images/selfie8.jpg",
   ];
 
   // 只在内部做两套，用于无缝循环（屏幕上始终主要看到一套）
@@ -68,9 +69,7 @@ export default function PhotoWall() {
       {/* Section Header */}
       <div className="mb-6 text-center">
         <h2 className="text-3xl font-bold tracking-tight">Featured Moments</h2>
-        <p className="mt-2 text-sm text-gray-500">
-          A glimpse into my life, projects, and journey
-        </p>
+        <p className="mt-2 text-sm text-gray-500">A glimpse into my life</p>
       </div>
 
       {/* Scrollable Photo Strip */}

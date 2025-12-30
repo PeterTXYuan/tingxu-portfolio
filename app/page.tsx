@@ -4,7 +4,7 @@ export default function HomePage() {
   return (
     <main className="space-y-16">
       {/* Hero / Intro + Photo wall on full-screen gradient */}
-      <section className="relative isolate left-1/2 right-1/2 -mx-[50vw] flex min-h-screen w-screen max-w-none flex-col justify-center gap-16 overflow-hidden bg-gradient-to-br from-sky-50 via-white to-indigo-100 px-6 py-14 md:px-12 md:py-20">
+      <section className="relative isolate left-1/2 right-1/2 -mx-[50vw] flex min-h-screen w-screen max-w-none flex-col justify-center gap-16 overflow-hidden bg-gradient-to-br from-sky-50 via-white to-indigo-100 px-6 pt-0 pb-14 md:px-12 md:pb-20">
         {/* Subtle background glows */}
         <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-sky-300/20 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-32 -left-16 h-80 w-80 rounded-full bg-indigo-300/15 blur-3xl" />
@@ -14,7 +14,7 @@ export default function HomePage() {
           <div className="space-y-7">
             <div className="inline-flex items-center gap-2 rounded-full border border-sky-200/80 bg-white/80 px-3.5 py-1.5 text-xs font-semibold text-sky-800 backdrop-blur-sm">
               <span className="h-2 w-2 rounded-full bg-emerald-500" />
-              Open to SWE / ML internships 2025
+              Open to SWE / ML internships 2026
             </div>
 
             <div className="space-y-2">
