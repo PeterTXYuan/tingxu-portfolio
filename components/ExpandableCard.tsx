@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, JSX } from "react";
+import Image from "next/image";
 
 interface ExpandableCardProps {
   title: string;
@@ -147,16 +148,17 @@ export default function ExpandableCard({
                   {images.map((src, index) => (
                     <div
                       key={index}
-                      className="relative group/image overflow-hidden rounded-xl border-2 border-white/80 shadow-md hover:shadow-xl transition-all cursor-pointer"
+                      className="relative group/image overflow-hidden rounded-xl border-2 border-white/80 shadow-md hover:shadow-xl transition-all cursor-pointer h-32"
                       onClick={(e) => {
                         e.stopPropagation(); 
                         setOpenImageIndex(index);
                       }}
                     >
-                      <img
+                      <Image
                         src={src}
                         alt={`Preview ${index + 1}`}
-                        className="w-full h-32 object-cover group-hover/image:scale-110 transition-transform duration-300"
+                        fill
+                        className="object-cover group-hover/image:scale-110 transition-transform duration-300"
                       />
                       <div className="absolute inset-0 bg-black/0 group-hover/image:bg-black/10 transition-colors" />
                     </div>
@@ -189,14 +191,15 @@ export default function ExpandableCard({
 
       {openImageIndex !== null && images && images.length > 0 && (
         <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-50" onClick={() => setOpenImageIndex(null)}>
-          <div className="relative max-w-5xl max-h-[90vh] p-4">
-            <img 
+          <div className="relative max-w-5xl max-h-[90vh] w-full h-full p-4">
+            <Image 
               src={images[openImageIndex]} 
               alt="Preview" 
-              className="max-w-full max-h-[90vh] rounded-lg shadow-2xl" 
+              fill
+              className="object-contain rounded-lg" 
             />
             <button 
-              className="absolute top-4 right-4 bg-white/90 hover:bg-white px-4 py-2 rounded-lg shadow-lg font-medium transition-colors"
+              className="absolute top-4 right-4 bg-white/90 hover:bg-white px-4 py-2 rounded-lg shadow-lg font-medium transition-colors z-10"
               onClick={() => setOpenImageIndex(null)}
             >
               Close ✕

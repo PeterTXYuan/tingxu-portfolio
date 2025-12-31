@@ -66,7 +66,7 @@ export default function ContactPage() {
               Contact
             </h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Let's connect! I'm always open to discussing new opportunities and
+              Let&apos;s connect! I&apos;m always open to discussing new opportunities and
               collaborations
             </p>
           </div>
