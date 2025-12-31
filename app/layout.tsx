@@ -4,10 +4,13 @@ import NavBar from "@/components/NavBar";
 
 export const metadata: Metadata = {
   title: "Tingxu Yuan | Portfolio",
-  description: "Personal website of Tingxu Yuan — UW ACMS junior, aspiring Software Engineer.",
+  description:
+    "Personal website of Tingxu Yuan — UW ACMS junior, aspiring Software Engineer.",
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <body className="antialiased">
@@ -15,9 +18,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <NavBar />
         </header>
 
-        <main className="px-0 py-0">
-          {children}
-        </main>
+        <main className="px-0 py-0">{children}</main>
       </body>
     </html>
   );

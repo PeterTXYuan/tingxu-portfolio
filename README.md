@@ -4,7 +4,7 @@ This repository contains the source code for my personal portfolio website, buil
 
 The site is designed to be fast, readable, and maintainable, while demonstrating real-world frontend engineering practices.
 
-🔗 **Live site:** (add your Vercel link here once deployed)
+🔗 **Live site:** https://tingxu-portfolio-1td7.vercel.app/
 
 ---
 
@@ -22,22 +22,28 @@ The site is designed to be fast, readable, and maintainable, while demonstrating
 ## Features
 
 - **App Router–based routing**
+
   - File-system routing (`/projects`, `/experience`, `/skills`, `/contact`, `/resume`)
 
 - **MDX-driven content**
+
   - Easy-to-edit markdown pages with React component support
 
 - **Expandable card UI**
+
   - Click-to-expand cards for Projects and Experience
   - Smooth animations using Framer Motion
 
 - **Image gallery & preview**
+
   - Multiple images per card with modal-style preview
 
 - **PDF hosting**
+
   - Resume and research papers served from `/public`
 
 - **Responsive design**
+
   - Fully usable on desktop and mobile
 
 - **Clean navigation**
@@ -46,6 +52,7 @@ The site is designed to be fast, readable, and maintainable, while demonstrating
 ---
 
 ## Project Structure
+
 ```
 .
 ├── app/
@@ -77,6 +84,7 @@ The site is designed to be fast, readable, and maintainable, while demonstrating
 ---
 
 ## Running Locally
+
 ```bash
 # Install dependencies
 npm install
