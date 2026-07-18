@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { profile } from "@/data/portfolio";
 
+type CopyStatus = "idle" | "copied" | "failed";
+
 const navItems = [
   { href: "/projects", label: "Work" },
   { href: "/experience", label: "Experience" },
@@ -16,6 +18,7 @@ const navItems = [
 export default function SiteHeader() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [copyStatus, setCopyStatus] = useState<CopyStatus>("idle");
 
   useEffect(() => {
     setMenuOpen(false);
@@ -29,6 +32,39 @@ export default function SiteHeader() {
     window.addEventListener("keydown", closeOnEscape);
     return () => window.removeEventListener("keydown", closeOnEscape);
   }, []);
+
+  useEffect(() => {
+    if (copyStatus === "idle") return;
+
+    const resetCopyStatus = window.setTimeout(
+      () => setCopyStatus("idle"),
+      copyStatus === "copied" ? 2400 : 5000,
+    );
+
+    return () => window.clearTimeout(resetCopyStatus);
+  }, [copyStatus]);
+
+  const copyEmail = async () => {
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(profile.email);
+      } else {
+        const textarea = document.createElement("textarea");
+        textarea.value = profile.email;
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.select();
+        const copied = document.execCommand("copy");
+        textarea.remove();
+        if (!copied) throw new Error("Copy command was rejected");
+      }
+
+      setCopyStatus("copied");
+    } catch {
+      setCopyStatus("failed");
+    }
+  };
 
   return (
     <header className="sticky top-0 z-40 border-b border-[var(--line)] bg-[color-mix(in_srgb,var(--paper)_92%,transparent)] backdrop-blur-xl">
@@ -70,12 +106,17 @@ export default function SiteHeader() {
         </div>
 
         <div className="flex items-center gap-2">
-          <a
-            href={profile.emailHref}
-            className="hidden rounded-full border border-[var(--line-strong)] bg-white px-4 py-2 text-sm font-semibold text-[var(--ink)] transition hover:border-[var(--purple)] hover:text-[var(--purple)] sm:inline-flex"
+          <button
+            type="button"
+            onClick={copyEmail}
+            className="hidden min-w-28 items-center justify-center gap-2 rounded-full border border-[var(--line-strong)] bg-white px-4 py-2 text-sm font-semibold text-[var(--ink)] transition hover:border-[var(--purple)] hover:text-[var(--purple)] sm:inline-flex"
+            aria-label="Copy email address"
           >
-            Let&apos;s talk
-          </a>
+            {copyStatus === "copied" ? "Email copied" : "Let's talk"}
+            <span aria-hidden="true">
+              {copyStatus === "copied" ? "✓" : "↗"}
+            </span>
+          </button>
           <button
             type="button"
             className="grid size-11 place-items-center rounded-full border border-[var(--line-strong)] bg-white text-[var(--ink)] lg:hidden"
@@ -133,7 +174,45 @@ export default function SiteHeader() {
                 </Link>
               );
             })}
+            <button
+              type="button"
+              onClick={copyEmail}
+              className="mt-3 flex items-center justify-between rounded-xl bg-[var(--ink)] px-4 py-3 text-left text-base font-semibold text-white"
+            >
+              {copyStatus === "copied" ? "Email copied" : "Copy email"}
+              <span aria-hidden="true">
+                {copyStatus === "copied" ? "✓" : "↗"}
+              </span>
+            </button>
           </div>
+        </div>
+      )}
+
+      {copyStatus !== "idle" && (
+        <div
+          className={`fixed right-4 top-20 z-50 max-w-[calc(100vw-2rem)] rounded-2xl border px-4 py-3 text-sm shadow-lg sm:right-8 ${
+            copyStatus === "copied"
+              ? "border-[var(--line)] bg-[var(--ink)] text-white"
+              : "border-red-200 bg-white text-[var(--ink)]"
+          }`}
+          role="status"
+          aria-live="polite"
+        >
+          {copyStatus === "copied" ? (
+            <span className="flex items-center gap-2 font-semibold">
+              <span
+                className="grid size-5 place-items-center rounded-full bg-[var(--green)] text-xs text-white"
+                aria-hidden="true"
+              >
+                ✓
+              </span>
+              Email copied to clipboard
+            </span>
+          ) : (
+            <span>
+              Copy failed. Please copy manually: <strong>{profile.email}</strong>
+            </span>
+          )}
         </div>
       )}
     </header>
