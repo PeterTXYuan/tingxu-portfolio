@@ -119,6 +119,29 @@ button {
   mask-image: linear-gradient(to bottom, black, transparent 80%);
 }
 
+.home-canvas {
+  background:
+    radial-gradient(circle at 8% 8%, rgb(143 112 199 / 18%), transparent 32rem),
+    radial-gradient(circle at 92% 34%, rgb(82 164 157 / 16%), transparent 34rem),
+    radial-gradient(circle at 42% 72%, rgb(218 169 141 / 13%), transparent 30rem),
+    linear-gradient(145deg, #f6f2ea 0%, #efebf6 48%, #e8f1ef 100%);
+}
+
+.photo-wall-surface {
+  background:
+    radial-gradient(circle at 12% 18%, rgb(143 112 199 / 40%), transparent 28rem),
+    radial-gradient(circle at 88% 72%, rgb(56 162 170 / 32%), transparent 30rem),
+    linear-gradient(135deg, #241637 0%, #432667 52%, #153f50 100%);
+}
+
+.photo-wall-grid {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 4%) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 4%) 1px, transparent 1px);
+  background-size: 3.5rem 3.5rem;
+  mask-image: linear-gradient(to bottom, transparent, black 22%, black 78%, transparent);
+}
+
 @media (min-width: 640px) {
   .page-shell {
     padding-inline: 2rem;

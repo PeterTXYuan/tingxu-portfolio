@@ -45,6 +45,18 @@ export default function HomePage() {
             return;
           }
 
+          gsap.to("[data-home-orb]", {
+            x: (index) => [72, -86, 58][index] ?? 0,
+            y: (index) => [54, 76, -62][index] ?? 0,
+            scale: (index) => [1.08, 0.92, 1.12][index] ?? 1,
+            rotation: (index) => [12, -10, 8][index] ?? 0,
+            duration: (index) => [17, 21, 19][index] ?? 18,
+            stagger: 1.5,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut",
+          });
+
           const intro = gsap.timeline({
             defaults: { duration: 0.8, ease: "power3.out" },
           });
@@ -142,10 +154,27 @@ export default function HomePage() {
   );
 
   return (
-    <main ref={pageRef}>
+    <main ref={pageRef} className="home-canvas relative isolate overflow-hidden">
+      <div
+        className="pointer-events-none absolute inset-0 z-0 hidden overflow-hidden md:block"
+        aria-hidden="true"
+      >
+        <span
+          data-home-orb
+          className="absolute -left-48 top-40 size-[38rem] rounded-full bg-[#9d7bd1]/20 blur-[110px] will-change-transform"
+        />
+        <span
+          data-home-orb
+          className="absolute -right-52 top-[58rem] size-[44rem] rounded-full bg-[#62b2aa]/20 blur-[120px] will-change-transform"
+        />
+        <span
+          data-home-orb
+          className="absolute left-[24%] top-[112rem] size-[36rem] rounded-full bg-[#dfa888]/15 blur-[105px] will-change-transform"
+        />
+      </div>
       <section
         data-hero
-        className="relative overflow-hidden border-b border-[var(--line)]"
+        className="relative z-10 overflow-hidden border-b border-[var(--line)]"
       >
         <div className="editorial-grid pointer-events-none absolute inset-0" />
         <div className="relative mx-auto grid min-h-[calc(100svh-4.5rem)] w-full max-w-[88rem] gap-8 px-5 py-8 sm:gap-12 sm:px-8 sm:py-14 md:px-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(22rem,0.72fr)] lg:items-center lg:py-16">
@@ -227,58 +256,62 @@ export default function HomePage() {
 
       <section
         data-proof
-        className="border-b border-white/10 bg-[var(--ink)] text-white"
+        className="relative z-10"
         aria-labelledby="proof-heading"
       >
-        <div className="mx-auto w-full max-w-[88rem] px-5 py-12 sm:px-8 md:px-12 md:py-16">
-          <div
-            data-proof-label
-            className="mb-8 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between"
-          >
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.17em] text-white/50">
-                Selected proof
-              </p>
-              <h2
-                id="proof-heading"
-                className="mt-3 text-2xl font-semibold tracking-[-0.035em]"
-              >
-                Experience that compounds.
-              </h2>
-            </div>
-            <p className="text-sm text-white/45">Signals, not slogans.</p>
-          </div>
-
-          <ol className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 lg:grid-cols-4">
-            {proofPoints.map((proof, index) => (
-              <li
-                data-proof-item
-                key={proof.name}
-                className="group min-h-48 bg-[var(--ink)] p-5 transition-colors hover:bg-[color-mix(in_srgb,var(--purple)_38%,var(--ink))] sm:min-h-52 sm:p-6 md:p-7"
-              >
-                <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
-                  <span className="text-xs font-bold tracking-[0.16em] text-white/35">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span className="rounded-full border border-white/15 px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-[0.12em] text-white/55">
-                    {proof.meta}
-                  </span>
-                </div>
-                <h3 className="mt-8 text-lg font-semibold tracking-[-0.03em] text-white sm:mt-12 sm:text-xl md:text-2xl">
-                  {proof.name}
-                </h3>
-                <p className="mt-2 text-sm leading-6 text-white/50">
-                  {proof.detail}
+        <div className="mx-auto w-full max-w-[88rem] px-5 pt-12 sm:px-8 md:px-12 md:pt-16">
+          <div className="overflow-hidden rounded-[2rem] border border-white/70 bg-white/50 p-5 shadow-[0_1.5rem_5rem_rgb(75_46_131_/_0.08)] backdrop-blur-xl sm:p-7 md:p-9">
+            <div
+              data-proof-label
+              className="mb-7 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between"
+            >
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.17em] text-[var(--purple)]/70">
+                  Selected proof
                 </p>
-              </li>
-            ))}
-          </ol>
+                <h2
+                  id="proof-heading"
+                  className="mt-3 text-2xl font-semibold tracking-[-0.035em] text-[var(--ink)]"
+                >
+                  Experience that compounds.
+                </h2>
+              </div>
+              <p className="text-sm text-[var(--muted)]">
+                Signals, not slogans.
+              </p>
+            </div>
+
+            <ol className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--line)] lg:grid-cols-4">
+              {proofPoints.map((proof, index) => (
+                <li
+                  data-proof-item
+                  key={proof.name}
+                  className="group min-h-48 bg-[var(--surface)] p-5 transition-colors hover:bg-white sm:min-h-52 sm:p-6 md:p-7"
+                >
+                  <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+                    <span className="text-xs font-bold tracking-[0.16em] text-[var(--purple)]/55">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span className="rounded-full border border-[var(--purple)]/15 bg-[var(--purple-soft)] px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-[0.12em] text-[var(--purple)]/75">
+                      {proof.meta}
+                    </span>
+                  </div>
+                  <h3 className="mt-8 text-lg font-semibold tracking-[-0.03em] text-[var(--ink)] sm:mt-12 sm:text-xl md:text-2xl">
+                    {proof.name}
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-[var(--muted)]">
+                    {proof.detail}
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
       </section>
 
       <section
         data-profile
-        className="mx-auto w-full max-w-[88rem] px-5 py-20 sm:px-8 md:px-12 md:py-28"
+        className="relative z-10 mx-auto w-full max-w-[88rem] px-5 py-20 sm:px-8 md:px-12 md:py-28"
       >
         <div className="grid gap-10 border-b border-[var(--line)] pb-14 lg:grid-cols-[0.65fr_1.35fr] lg:items-start">
           <div data-home-reveal>

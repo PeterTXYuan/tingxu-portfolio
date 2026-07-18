@@ -8,8 +8,8 @@ import { profile } from "@/data/portfolio";
 type CopyStatus = "idle" | "copied" | "failed";
 
 const navItems = [
-  { href: "/projects", label: "Projects" },
   { href: "/experience", label: "Experience" },
+  { href: "/projects", label: "Projects" },
   { href: "/skills", label: "Skills" },
   { href: "/contact", label: "Contact" },
   { href: "/resume", label: "Resume" },

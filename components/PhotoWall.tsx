@@ -20,7 +20,20 @@ export default function PhotoWall() {
         "(prefers-reduced-motion: reduce)",
       ).matches;
 
-      if (!trackRef.current || reduceMotion) return;
+      if (reduceMotion) return;
+
+      gsap.to("[data-photo-glow]", {
+        x: (index) => (index === 0 ? 90 : -80),
+        y: (index) => (index === 0 ? 48 : -54),
+        scale: (index) => (index === 0 ? 1.12 : 0.9),
+        duration: (index) => (index === 0 ? 16 : 20),
+        stagger: 2,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
+
+      if (!trackRef.current) return;
 
       tweenRef.current = gsap.to(trackRef.current, {
         xPercent: -50,
@@ -46,10 +59,22 @@ export default function PhotoWall() {
   return (
     <section
       ref={containerRef}
-      className="border-y border-[var(--line)] bg-[var(--ink)] py-16 text-white md:py-20"
+      className="photo-wall-surface relative z-10 overflow-hidden border-y border-white/10 py-16 text-white md:py-20"
       aria-labelledby="moments-heading"
     >
-      <div className="mx-auto mb-10 flex w-full max-w-[88rem] flex-col gap-4 px-5 sm:px-8 md:flex-row md:items-end md:justify-between md:px-12">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        <span
+          data-photo-glow
+          className="absolute -left-44 -top-52 size-[34rem] rounded-full bg-[#bc9cff]/20 blur-[100px] will-change-transform"
+        />
+        <span
+          data-photo-glow
+          className="absolute -bottom-56 -right-40 size-[38rem] rounded-full bg-[#55c9cc]/20 blur-[110px] will-change-transform"
+        />
+        <span className="photo-wall-grid absolute inset-0" />
+      </div>
+
+      <div className="relative z-10 mx-auto mb-10 flex w-full max-w-[88rem] flex-col gap-4 px-5 sm:px-8 md:flex-row md:items-end md:justify-between md:px-12">
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/55">
             Beyond the build
@@ -67,7 +92,7 @@ export default function PhotoWall() {
         </p>
       </div>
 
-      <div className="overflow-hidden">
+      <div className="relative z-10 overflow-hidden">
         <div
           ref={trackRef}
           className="flex w-max will-change-transform"
@@ -102,7 +127,7 @@ export default function PhotoWall() {
                     type="button"
                     key={`${group}-${moment.id}`}
                     onClick={() => setPreviewIndex(index)}
-                    className="group relative h-60 w-[78vw] max-w-[23rem] shrink-0 overflow-hidden rounded-2xl bg-white/10 text-left sm:h-72 sm:w-[23rem]"
+                    className="group relative h-60 w-[78vw] max-w-[23rem] shrink-0 overflow-hidden rounded-2xl bg-white/10 text-left shadow-[0_1rem_3rem_rgb(0_0_0_/_0.22)] ring-1 ring-white/15 sm:h-72 sm:w-[23rem]"
                     aria-label={`Open photo: ${moment.caption}`}
                   >
                     {image}
@@ -110,7 +135,7 @@ export default function PhotoWall() {
                 ) : (
                   <div
                     key={`${group}-${moment.id}`}
-                    className="group relative h-60 w-[78vw] max-w-[23rem] shrink-0 overflow-hidden rounded-2xl bg-white/10 sm:h-72 sm:w-[23rem]"
+                    className="group relative h-60 w-[78vw] max-w-[23rem] shrink-0 overflow-hidden rounded-2xl bg-white/10 shadow-[0_1rem_3rem_rgb(0_0_0_/_0.22)] ring-1 ring-white/15 sm:h-72 sm:w-[23rem]"
                     aria-hidden="true"
                   >
                     {image}
