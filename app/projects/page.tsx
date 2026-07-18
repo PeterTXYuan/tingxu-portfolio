@@ -1,98 +1,108 @@
-"use client";
+import type { Metadata } from "next";
+import Image from "next/image";
+import PageIntro from "@/components/PageIntro";
+import { projects } from "@/data/portfolio";
 
-import { useState } from "react";
-import ExpandableCard from "@/components/ExpandableCard";
+export const metadata: Metadata = {
+  title: "Selected Work",
+  description:
+    "Selected software engineering and machine learning work by Tingxu Yuan.",
+};
 
 export default function ProjectsPage() {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
-
-  const projects = [
-    {
-      title: "GAN Research",
-      subtitle: "Jun 2022 – Aug 2022",
-      description:
-        "Trained GANs for synthetic data generation; co-authored IEEE paper.",
-      details:
-        "During the summer of 2022, I collaborated with a team of MIT researchers on a two-month\
-      research initiative focused on Generative Adversarial Networks (GANs). As the second author on the\
-      resulting paper, I contributed to both the technical implementation and the academic writing process\
-       majorly in introduction section.\
-      Specifically, I implemented Gradient Penalty techniques to enhance model stability and successfully\
-      reduced overfitting by 15%, while also co-authoring the final manuscript that was later accepted\
-      into a peer-reviewed conference.",
-      links: [
-        { label: "Research Paper", url: "/gan-paper.pdf" },
-        { label: "Certificate", url: "/gan-certificate.pdf" },
-      ],
-      icon: "🧠",
-      colorScheme: "purple" as const,
-    },
-    {
-      title: "Wedding Reservation System",
-      subtitle: "Jan 2023 – Jun 2023",
-      description:
-        "Full-stack app for wedding guest management with Java & TypeScript.",
-      details:
-        "During the final quarter of my freshman year, I developed my first full-stack\
-      project: a wedding registration web application. The platform allowed guests to register\
-      themselves and family members, specify dietary preferences, and manage RSVP details.\
-      I implemented dynamic, interactive forms with expandable dropdown menus, applied conditional\
-      UI logic for a seamless user experience, and built a backend powered by RESTful APIs to handle\
-      data efficiently and securely. Unfortunately, the source code was completely local and was left in\
-      my old laptop.",
-      icon: "💒",
-      colorScheme: "pink" as const,
-    },
-    {
-      title: "Personal Portfolio Website",
-      subtitle: "Aug 2025 - Sep 2025",
-      description: "This website you are looking at.",
-      details:
-        "Decided to create my own website all by myself summer 2025. The github repo is set to public below: ",
-      links: [
-        {
-          label: "Website Github Repo",
-          url: "https://github.com/PeterTXYuan/tingxu-portfolio",
-        },
-      ],
-      icon: "🌐",
-      colorScheme: "blue" as const,
-    },
-  ];
-
   return (
-    <main className="min-h-screen bg-gradient-to-br from-sky-50 via-white to-indigo-50">
-      {/* Hero Section */}
-      <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-100/30 via-transparent to-purple-100/30" />
-        <div className="relative max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl shadow-lg mb-6 text-4xl">
-              💼
-            </div>
-            <h1 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
-              Projects
-            </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              A collection of my work spanning machine learning research,
-              full-stack development, and creative solutions
-            </p>
-          </div>
-        </div>
-      </div>
+    <main className="page-shell">
+      <PageIntro
+        eyebrow="Selected work"
+        title="Projects measured by what changed."
+        description="A focused collection of product engineering, machine learning research, and enterprise systems work. Each project foregrounds the problem, contribution, and measurable result."
+      />
 
-      {/* Projects Grid */}
-      <div className="relative max-w-7xl mx-auto px-6 md:px-12 pb-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {projects.map((project, idx) => (
-            <ExpandableCard
-              key={idx}
-              {...project}
-              expanded={activeIndex === idx}
-              onClick={() => setActiveIndex(activeIndex === idx ? null : idx)}
-            />
-          ))}
-        </div>
+      <div className="mt-12 grid gap-6 md:mt-16">
+        {projects.map((project, index) => (
+          <article
+            key={project.title}
+            className="surface-card grid overflow-hidden lg:grid-cols-[0.7fr_1.3fr]"
+          >
+            <div
+              className={`relative min-h-64 overflow-hidden border-b border-[var(--line)] lg:min-h-[30rem] lg:border-b-0 lg:border-r ${
+                project.image
+                  ? "bg-[var(--paper-deep)]"
+                  : "grid place-items-center bg-[var(--purple)]"
+              }`}
+            >
+              {project.image ? (
+                <Image
+                  src={project.image}
+                  alt={`${project.title} interface`}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 36vw"
+                  className="object-cover"
+                  priority={index === 0}
+                />
+              ) : (
+                <div className="px-8 text-center text-white">
+                  <span className="block text-[7rem] font-semibold leading-none tracking-[-0.08em] text-white/20 md:text-[10rem]">
+                    15%
+                  </span>
+                  <span className="mt-4 block text-sm font-semibold uppercase tracking-[0.16em] text-white/70">
+                    reduction in overfitting
+                  </span>
+                </div>
+              )}
+              <span className="absolute left-5 top-5 rounded-full bg-[var(--ink)] px-3 py-1 text-xs font-bold text-white">
+                0{index + 1}
+              </span>
+            </div>
+
+            <div className="flex flex-col p-6 sm:p-8 md:p-10 lg:p-12">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <p className="eyebrow">{project.eyebrow}</p>
+                <p className="text-sm font-semibold text-[var(--muted)]">
+                  {project.period}
+                </p>
+              </div>
+              <h2 className="mt-8 max-w-3xl text-3xl font-semibold leading-tight tracking-[-0.045em] text-[var(--ink)] md:text-5xl">
+                {project.title}
+              </h2>
+              <p className="mt-6 max-w-2xl text-base leading-7 text-[var(--muted)] md:text-lg md:leading-8">
+                {project.description}
+              </p>
+
+              <ul className="mt-8 grid gap-3 border-y border-[var(--line)] py-6 text-sm leading-6 text-[var(--ink)] sm:grid-cols-3">
+                {project.impact.map((item) => (
+                  <li className="flex gap-2" key={item}>
+                    <span className="mt-2 size-1.5 shrink-0 rounded-full bg-[var(--purple)]" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-auto flex flex-col gap-7 pt-8 sm:flex-row sm:items-end sm:justify-between">
+                <div className="flex flex-wrap gap-2">
+                  {project.technologies.map((technology) => (
+                    <span className="tag" key={technology}>
+                      {technology}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex shrink-0 flex-wrap gap-4 text-sm font-semibold">
+                  {project.links.map((link) => (
+                    <a
+                      className="text-link"
+                      href={link.href}
+                      key={link.href}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {link.label} ↗
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </article>
+        ))}
       </div>
     </main>
   );

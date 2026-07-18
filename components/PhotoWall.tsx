@@ -1,162 +1,154 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { photoMoments } from "@/data/moments";
 
-const SCROLL_SPEED = 0.2; // px per frame – 控制动画速度
+gsap.registerPlugin(useGSAP);
 
 export default function PhotoWall() {
-  const photos = [
-    "/images/selfie1.jpg",
-    "/images/selfie2.jpg",
-    "/images/selfie3.jpg",
-    "/images/selfie4.jpg",
-    "/images/selfie5.jpg",
-    "/images/selfie6.jpg",
-    "/images/selfie7.jpg",
-    "/images/selfie8.jpg",
-  ];
-
-  // 只在内部做两套，用于无缝循环（屏幕上始终主要看到一套）
-  const extendedPhotos = [...photos, ...photos];
-
+  const containerRef = useRef<HTMLElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const tweenRef = useRef<gsap.core.Tween | null>(null);
   const [previewIndex, setPreviewIndex] = useState<number | null>(null);
-  const [isHovered, setIsHovered] = useState(false);
-  const trackRef = useRef<HTMLDivElement | null>(null);
-  const offsetRef = useRef(0);
 
-  // Close preview on Escape
+  useGSAP(
+    () => {
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
+      if (!trackRef.current || reduceMotion) return;
+
+      tweenRef.current = gsap.to(trackRef.current, {
+        xPercent: -50,
+        duration: 42,
+        ease: "none",
+        repeat: -1,
+      });
+    },
+    { scope: containerRef },
+  );
+
   useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setPreviewIndex(null);
-    };
-    window.addEventListener("keydown", handleEsc);
-    return () => window.removeEventListener("keydown", handleEsc);
-  }, []);
+    if (previewIndex === null) return;
 
-  // Auto-scrolling using translateX（不再依赖 scrollLeft）
-  useEffect(() => {
-    let animationFrame: number;
-
-    const step = () => {
-      const track = trackRef.current;
-      if (!track) return;
-
-      if (!isHovered) {
-        offsetRef.current -= SCROLL_SPEED;
-
-        // 一套照片的宽度 = 总宽度的一半
-        const totalWidth = track.scrollWidth / 2;
-
-        // 当已经完全滚完一整套后，从头再来
-        if (Math.abs(offsetRef.current) >= totalWidth) {
-          offsetRef.current = 0;
-        }
-
-        track.style.transform = `translateX(${offsetRef.current}px)`;
-      }
-
-      animationFrame = requestAnimationFrame(step);
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setPreviewIndex(null);
     };
 
-    animationFrame = requestAnimationFrame(step);
-
-    return () => cancelAnimationFrame(animationFrame);
-  }, [isHovered]);
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [previewIndex]);
 
   return (
-    <section className="mt-10">
-      {/* Section Header */}
-      <div className="mb-6 text-center">
-        <h2 className="text-3xl font-bold tracking-tight">Featured Moments</h2>
-        <p className="mt-2 text-sm text-gray-500">A glimpse into my life</p>
-      </div>
-
-      {/* Scrollable Photo Strip */}
-      <div className="relative -mx-6 md:-mx-10 overflow-hidden">
-        <div
-          ref={trackRef}
-          className="flex gap-6 pb-6 px-6 md:px-10 will-change-transform"
-          onWheel={(e) => {
-            // 支持鼠标滚轮横向滚动：用垂直滚轮控制横向位移
-            e.preventDefault();
-            offsetRef.current -= e.deltaY * 0.5;
-            const track = trackRef.current;
-            if (!track) return;
-            const totalWidth = track.scrollWidth / 2;
-            if (offsetRef.current <= -totalWidth) offsetRef.current = 0;
-            if (offsetRef.current >= 0) offsetRef.current = 0;
-            track.style.transform = `translateX(${offsetRef.current}px)`;
-          }}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          {extendedPhotos.map((src, idx) => (
-            <div
-              key={idx}
-              onClick={() => setPreviewIndex(idx % photos.length)}
-              className="
-                flex-shrink-0
-                relative
-                w-[420px] h-[260px]
-                rounded-2xl
-                overflow-hidden
-                shadow-md
-                cursor-pointer
-                transition-all
-                duration-300
-                hover:scale-[1.03]
-                hover:shadow-xl
-              "
-            >
-              <Image
-                src={src}
-                alt={`Moment ${idx + 1}`}
-                fill
-                className="object-cover"
-              />
-            </div>
-          ))}
+    <section
+      ref={containerRef}
+      className="border-y border-[var(--line)] bg-[var(--ink)] py-16 text-white md:py-20"
+      aria-labelledby="moments-heading"
+    >
+      <div className="mx-auto mb-10 flex w-full max-w-[88rem] flex-col gap-4 px-5 sm:px-8 md:flex-row md:items-end md:justify-between md:px-12">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/55">
+            Beyond the build
+          </p>
+          <h2
+            id="moments-heading"
+            className="mt-4 text-3xl font-semibold tracking-[-0.045em] md:text-5xl"
+          >
+            A few moments along the way.
+          </h2>
         </div>
-
-        {/* Subtle hint */}
-        <p className="mt-2 text-center text-xs text-gray-400">
-          Auto-scrolling · You can also mouse scroll or tap to preview
+        <p className="max-w-md text-sm leading-6 text-white/60">
+          Life around Seattle, school, teams, and the people behind the work.
+          Hover to pause or select an image to view it.
         </p>
       </div>
 
-      {/* Fullscreen Preview */}
+      <div className="overflow-hidden">
+        <div
+          ref={trackRef}
+          className="flex w-max will-change-transform"
+          onPointerEnter={() => tweenRef.current?.pause()}
+          onPointerLeave={() => tweenRef.current?.play()}
+        >
+          {[0, 1].map((group) => (
+            <div
+              className="flex shrink-0 gap-4 pr-4 sm:gap-5 sm:pr-5"
+              key={group}
+              aria-hidden={group === 1}
+            >
+              {photoMoments.map((moment, index) => {
+                const image = (
+                  <>
+                    <Image
+                      src={moment.src}
+                      alt={group === 0 ? moment.alt : ""}
+                      fill
+                      sizes="(max-width: 640px) 78vw, 368px"
+                      className="object-cover transition duration-500 group-hover:scale-[1.025]"
+                    />
+                    <span className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/45 to-transparent" />
+                    <span className="absolute bottom-4 left-4 text-xs font-semibold uppercase tracking-[0.12em] text-white/85">
+                      {moment.caption}
+                    </span>
+                  </>
+                );
+
+                return group === 0 ? (
+                  <button
+                    type="button"
+                    key={`${group}-${moment.id}`}
+                    onClick={() => setPreviewIndex(index)}
+                    className="group relative h-60 w-[78vw] max-w-[23rem] shrink-0 overflow-hidden rounded-2xl bg-white/10 text-left sm:h-72 sm:w-[23rem]"
+                    aria-label={`Open photo: ${moment.caption}`}
+                  >
+                    {image}
+                  </button>
+                ) : (
+                  <div
+                    key={`${group}-${moment.id}`}
+                    className="group relative h-60 w-[78vw] max-w-[23rem] shrink-0 overflow-hidden rounded-2xl bg-white/10 sm:h-72 sm:w-[23rem]"
+                    aria-hidden="true"
+                  >
+                    {image}
+                  </div>
+                );
+              })}
+            </div>
+          ))}
+        </div>
+      </div>
+
       {previewIndex !== null && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80"
+          className="fixed inset-0 z-50 grid place-items-center bg-black/90 p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-label={photoMoments[previewIndex].caption}
           onClick={() => setPreviewIndex(null)}
         >
           <div
-            className="relative h-full max-h-[85vh] w-full max-w-5xl p-4"
-            onClick={(e) => e.stopPropagation()}
+            className="relative h-[82vh] w-full max-w-6xl"
+            onClick={(event) => event.stopPropagation()}
           >
             <Image
-              src={photos[previewIndex]}
-              alt="Preview"
+              src={photoMoments[previewIndex].src}
+              alt={photoMoments[previewIndex].alt}
               fill
-              className="rounded-xl object-contain"
+              sizes="100vw"
+              className="object-contain"
+              priority
             />
-
             <button
-              className="
-                absolute
-                top-4 right-4
-                rounded-full
-                bg-white/90
-                px-4 py-1
-                text-sm
-                font-medium
-                shadow
-                hover:bg-white
-              "
+              type="button"
+              className="absolute right-0 top-0 rounded-full bg-white px-4 py-2 text-sm font-semibold text-[var(--ink)]"
               onClick={() => setPreviewIndex(null)}
+              autoFocus
             >
-              Close ✕
+              Close
             </button>
           </div>
         </div>

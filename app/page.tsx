@@ -1,134 +1,111 @@
+import Link from "next/link";
 import PhotoWall from "@/components/PhotoWall";
+import { education, experiences, profile } from "@/data/portfolio";
 
 export default function HomePage() {
+  const currentRole = experiences[0];
+
   return (
-    <main className="space-y-16">
-      {/* Hero / Intro + Photo wall on full-screen gradient */}
-      <section className="relative isolate left-1/2 right-1/2 -mx-[50vw] flex min-h-screen w-screen max-w-none flex-col justify-center gap-16 overflow-hidden bg-gradient-to-br from-sky-50 via-white to-indigo-100 px-6 pt-0 pb-14 md:px-12 md:pb-20">
-        {/* Subtle background glows */}
-        <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-sky-300/20 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-32 -left-16 h-80 w-80 rounded-full bg-indigo-300/15 blur-3xl" />
-
-        <div className="relative mx-auto grid max-w-6xl gap-12 md:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] md:items-center">
-          {/* Text side */}
-          <div className="space-y-7">
-            <div className="inline-flex items-center gap-2 rounded-full border border-sky-200/80 bg-white/80 px-3.5 py-1.5 text-xs font-semibold text-sky-800 backdrop-blur-sm">
-              <span className="h-2 w-2 rounded-full bg-emerald-500" />
-              Open to SWE / ML internships 2026
-            </div>
-
-            <div className="space-y-2">
-              <h1 className="text-5xl font-semibold tracking-tight md:text-6xl">
-                <span className="bg-gradient-to-r from-sky-600 via-indigo-700 to-purple-600 bg-clip-text text-transparent">
-                  Tingxu Yuan
-                </span>
-              </h1>
-              <p className="text-lg font-medium text-gray-700 md:text-xl">
-                ACMS junior @ University of Washington · Software Engineering ·
-                Machine Learning · Web3
-              </p>
-            </div>
-
-            <p className="max-w-2xl text-base leading-relaxed text-gray-700 md:text-lg">
-              Adaptable Math and Computer Science undergraduate with hands-on
-              experience in full‑stack development, Web3 infrastructure, and
-              applied machine learning. I enjoy turning ideas into reliable
-              systems and data‑driven products that people actually use.
+    <main>
+      <section className="relative overflow-hidden border-b border-[var(--line)]">
+        <div className="editorial-grid pointer-events-none absolute inset-0" />
+        <div className="relative mx-auto grid min-h-[calc(100svh-4.5rem)] w-full max-w-[88rem] gap-12 px-5 py-16 sm:px-8 md:px-12 md:py-24 lg:grid-cols-[minmax(0,1.25fr)_minmax(20rem,0.65fr)] lg:items-center">
+          <div>
+            <p className="eyebrow">Seattle · Software engineering</p>
+            <h1 className="mt-7 max-w-5xl text-[clamp(3.4rem,8vw,7.8rem)] font-semibold leading-[0.88] tracking-[-0.065em] text-[var(--ink)]">
+              Building reliable systems from
+              <span className="text-[var(--purple)]"> idea to impact.</span>
+            </h1>
+            <p className="mt-8 max-w-3xl text-lg leading-8 text-[var(--muted)] md:text-xl md:leading-9">
+              {profile.headline} Currently contributing to AI-driven mobile
+              test automation at Xiaomi while studying ACMS at the University
+              of Washington.
             </p>
 
-            {/* Quick stats / highlights */}
-            <div className="grid gap-4 text-base text-gray-800 sm:grid-cols-3">
-              <div className="rounded-2xl bg-white/80 p-5 shadow-[0_0_0_1px_rgba(148,163,184,0.25)] backdrop-blur">
-                <p className="text-[12px] uppercase tracking-wide text-gray-500">
-                  Focus
-                </p>
-                <p className="mt-2 text-base font-semibold">
-                  Distributed systems, ML, data‑heavy apps
-                </p>
-              </div>
-              <div className="rounded-2xl bg-white/80 p-5 shadow-[0_0_0_1px_rgba(148,163,184,0.25)] backdrop-blur">
-                <p className="text-[12px] uppercase tracking-wide text-gray-500">
-                  Experience
-                </p>
-                <p className="mt-2 text-base font-semibold">
-                  Research, full‑stack, Web3 infra
-                </p>
-              </div>
-              <div className="rounded-2xl bg-white/80 p-5 shadow-[0_0_0_1px_rgba(148,163,184,0.25)] backdrop-blur">
-                <p className="text-[12px] uppercase tracking-wide text-gray-500">
-                  Currently
-                </p>
-                <p className="mt-2 text-base font-semibold">
-                  Building side projects & exploring ML tooling
-                </p>
-              </div>
-            </div>
-
-            {/* Primary actions */}
-            <div className="flex flex-wrap gap-4 pt-2">
-              <a
+            <div className="mt-9 flex flex-wrap gap-3">
+              <Link
                 href="/projects"
-                className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-sky-600 to-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:from-sky-700 hover:to-indigo-700 md:text-base"
+                className="inline-flex items-center gap-2 rounded-full bg-[var(--ink)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[var(--purple)]"
               >
-                View projects
-                <span className="ml-1.5 text-sm">↗</span>
-              </a>
-              <a
+                Explore selected work <span aria-hidden="true">↗</span>
+              </Link>
+              <Link
                 href="/resume"
-                className="inline-flex items-center justify-center rounded-full border border-gray-300 bg-white/80 px-6 py-3 text-sm font-semibold text-gray-900 shadow-sm transition hover:border-gray-400 hover:bg-white md:text-base"
+                className="inline-flex items-center gap-2 rounded-full border border-[var(--line-strong)] bg-white px-5 py-3 text-sm font-semibold text-[var(--ink)] transition hover:border-[var(--purple)] hover:text-[var(--purple)]"
               >
                 View resume
-              </a>
+              </Link>
             </div>
           </div>
 
-          {/* Side snapshot */}
-          <aside className="relative h-full">
-            <div className="relative flex h-full flex-col justify-between rounded-3xl bg-white/80 p-6 shadow-[0_25px_70px_-35px_rgba(59,130,246,0.35)] backdrop-blur-md md:p-7">
-              <div className="space-y-3">
-                <p className="text-xs font-semibold uppercase tracking-wide text-sky-700">
-                  Snapshot
+          <aside className="surface-card overflow-hidden" aria-label="Current profile">
+            <div className="border-b border-[var(--line)] bg-[var(--purple)] p-6 text-white md:p-8">
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/65">
+                Now
+              </p>
+              <h2 className="mt-8 text-3xl font-semibold tracking-[-0.04em]">
+                {currentRole.company}
+              </h2>
+              <p className="mt-2 text-base text-white/75">{currentRole.role}</p>
+              <p className="mt-6 text-sm leading-6 text-white/75">
+                {currentRole.summary}
+              </p>
+            </div>
+            <div className="grid gap-7 p-6 md:p-8">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.14em] text-[var(--muted)]">
+                  Education
                 </p>
-                <p className="text-base text-gray-800">
-                  I thrive on the challenge of bringing structure to complexity.
-                  I approach engineering with a focus on first principles, using
-                  mathematical rigor to decompose ambiguous problems into
-                  elegant, scalable architectures. My passion lies in bridging
-                  the gap between theoretical research and practical
-                  application—taking abstract concepts and forging them into
-                  robust, real-world systems. I am a builder at heart, driven
-                  not just to write code, but to design solutions that are
-                  efficient, enduring, and fundamentally sound.
+                <p className="mt-3 font-semibold text-[var(--ink)]">
+                  {education.school}
+                </p>
+                <p className="mt-1 text-sm leading-6 text-[var(--muted)]">
+                  {education.degree}
                 </p>
               </div>
-
-              <div className="mt-8 grid gap-4 text-sm text-gray-700">
-                <div className="flex items-center justify-between rounded-2xl bg-sky-50/90 px-4 py-3">
-                  <span className="text-base font-semibold text-sky-900">
-                    Tech
+              <div className="flex flex-wrap gap-2">
+                {currentRole.technologies.slice(0, 6).map((technology) => (
+                  <span className="tag" key={technology}>
+                    {technology}
                   </span>
-                  <span className="text-xs md:text-sm">
-                    TypeScript · React/Next.js · Python · SQL
-                  </span>
-                </div>
-                <div className="flex items-center justify-between rounded-2xl bg-indigo-50/90 px-4 py-3">
-                  <span className="text-base font-semibold text-indigo-900">
-                    Strengths
-                  </span>
-                  <span className="text-xs md:text-sm">
-                    systems thinking · data intuition · fast iteration
-                  </span>
-                </div>
+                ))}
               </div>
             </div>
           </aside>
         </div>
+      </section>
 
-        {/* Photo wall section inside gradient (slightly wider than text area) */}
-        <div className="relative mx-auto mt-4 w-full max-w-7xl">
-          <PhotoWall />
+      <section className="mx-auto w-full max-w-[88rem] px-5 py-20 sm:px-8 md:px-12 md:py-28">
+        <div className="grid gap-10 border-b border-[var(--line)] pb-14 lg:grid-cols-[0.65fr_1.35fr] lg:items-start">
+          <div>
+            <p className="eyebrow">Profile</p>
+            <h2 className="mt-5 text-3xl font-semibold tracking-[-0.04em] md:text-4xl">
+              Engineering with range and rigor.
+            </h2>
+          </div>
+          <div>
+            <p className="max-w-3xl text-xl leading-9 text-[var(--muted)] md:text-2xl md:leading-10">
+              {profile.summary}
+            </p>
+            <dl className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--line)] sm:grid-cols-3">
+              {[
+                ["3.77", "UW GPA"],
+                ["35%", "faster initial load"],
+                ["95%", "automated test coverage"],
+              ].map(([value, label]) => (
+                <div className="bg-[var(--surface)] p-6" key={label}>
+                  <dt className="text-sm text-[var(--muted)]">{label}</dt>
+                  <dd className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-[var(--purple)]">
+                    {value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
         </div>
       </section>
+
+      <PhotoWall />
     </main>
   );
 }

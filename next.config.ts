@@ -7,6 +7,7 @@ const withMDX = createMDX({
 
 const nextConfig: NextConfig = {
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
+  outputFileTracingRoot: process.cwd(),
 };
 
 export default withMDX(nextConfig);

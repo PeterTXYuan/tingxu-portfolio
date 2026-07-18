@@ -1,149 +1,124 @@
-"use client";
+import type { Metadata } from "next";
+import PageIntro from "@/components/PageIntro";
+import { experiences, leadership } from "@/data/portfolio";
 
-import ExpandableCard from "@/components/ExpandableCard";
-import { useState } from "react";
+export const metadata: Metadata = {
+  title: "Experience",
+  description:
+    "Software engineering, full-stack, machine learning, and leadership experience from Tingxu Yuan.",
+};
 
 export default function ExperiencePage() {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
-
-  const experiences = [
-    {
-      title: "VisionX – Decentralized Energy Marketplace",
-      subtitle: "Full-Stack Lead | Jun 2025 – Aug 2025",
-      description:
-        "Led blockchain-based energy trading dApp development with React & Hardhat.",
-      details: (
-        <>
-          During the summer before my junior year, I joined VisionX after a
-          strong performance in the technical interview. Initially tasked with
-          front-end development for a decentralized energy trading dApp, I
-          quickly became project lead after demonstrating fast onboarding and
-          strong technical execution.
-          <br /> <br />
-          Over the internship, I developed four fully responsive pages (Main,
-          Marketplace, About Us, Login), integrated MetaMask wallet with smart
-          contracts for local ETH transactions, and optimized UI performance
-          using Chakra UI. Through code splitting and lazy loading, we reduced
-          initial load time by 35%. Additionally, I authored
-          onboarding/offboarding guides that accelerated new developer setup
-          time by 50%, ensuring smoother collaboration within the team.
-        </>
-      ),
-      links: [
-        { label: "Company Website", url: "https://www.visionx.llc/" },
-        {
-          label: "Web3 Project Repo",
-          url: "https://github.com/PeterTXYuan/mallsolar_web3_mvp",
-        },
-      ],
-      images: [
-        "/images/mallsolar-1.png",
-        "/images/mallsolar-2.png",
-        "/images/mallsolar-3.png",
-        "/images/mallsolar-4.png",
-      ],
-      icon: "⚡",
-      colorScheme: "indigo" as const,
-    },
-    {
-      title: "Tianjin Yinhai Software",
-      subtitle: "Full-Stack Intern | Jun 2024 – Sep 2024",
-      description:
-        "Developed hospital management system using Spring Boot & Vue.js.",
-      details: (
-        <>
-          My first in-person internship provided experience working with a
-          large-scale hospital management system involving 50+ repository files.
-          I contributed to the integration of role-based access and scheduling
-          modules, refactored the monolithic backend into RESTful microservices,
-          and achieved a 30% reduction in API latency using Redis caching.
-          <br />
-          <br /> I collaborated with a team of junior developers to implement
-          automated tests with JUnit and Postman, reaching 95% test coverage.
-          This experience introduced me to enterprise-level development
-          practices and earned positive feedback from project managers, along
-          with an official offboarding certificate.
-        </>
-      ),
-      links: [{ label: "Company Website", url: "http://www.tjyinhai.com/" }],
-      images: [
-        "/images/hospital-management.jpg",
-        "/images/hospital-management-2.jpg",
-        "/images/hospital-management-3.jpg",
-      ],
-      icon: "🏥",
-      colorScheme: "green" as const,
-    },
-    {
-      title: "Mobalytics",
-      subtitle: "Data Science Intern | Jun 2022 – Aug 2022",
-      description:
-        "Developed churn prediction model improving accuracy by 18%.",
-      details:
-        "At Mobalytics, I developed a player churn prediction model that improved accuracy by 18%, leveraging\
-      scikit-learn and SQL-based data pipelines. Under mentorship from senior data scientists, I engineered behavioral\
-      features from gameplay logs using SQL and Pandas, created interactive data visualizations, and delivered analytical\
-      reports to inform product decisions in the gaming market.",
-      links: [{ label: "Company Website", url: "https://mobalytics.gg/" }],
-      icon: "📊",
-      colorScheme: "orange" as const,
-    },
-    {
-      title: "CENUW (China Entrepreneur Network at UW)",
-      subtitle: "President | May 2025 - present",
-      description:
-        "Elected President of CENUW for the 2025–26 academic year at the University of Washington",
-      details:
-        "UWCEN (University of Washington China Entrepreneur Network) is a registered non-profit student organization \
-      focused on connecting UW students with industry professionals and fostering entrepreneurship. I joined as a freshman, \
-      actively contributed to all four major events in my first two quarters, and was soon promoted to Event Planning Lead \
-      in Spring 2025. In May 2025, I was elected President for the upcoming academic year, where I will lead 60+ members and \
-      organize large-scale networking events with an average attendance of over 100 participants.",
-      links: [
-        {
-          label: "Club Details",
-          url: "https://huskylink.washington.edu/organization/cenuw",
-        },
-        { label: "More Details Slides", url: "/CEN-slides.pdf" },
-      ],
-      icon: "🎯",
-      colorScheme: "blue" as const,
-    },
-  ];
-
   return (
-    <main className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
-      {/* Hero Section */}
-      <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-100/30 via-transparent to-purple-100/30" />
-        <div className="relative max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl shadow-lg mb-6 text-4xl">
-              🚀
+    <main className="page-shell">
+      <PageIntro
+        eyebrow="Experience"
+        title="A track record across systems and teams."
+        description="From AI-driven mobile test infrastructure to Web3 products, enterprise software, and applied machine learning."
+      />
+
+      <ol className="relative mt-14 grid gap-6 md:mt-20">
+        {experiences.map((experience, index) => (
+          <li
+            key={`${experience.company}-${experience.period}`}
+            className="grid gap-5 border-b border-[var(--line)] pb-10 md:grid-cols-[8rem_minmax(0,1fr)] md:gap-10 md:pb-14"
+          >
+            <div className="flex items-start gap-4 md:block">
+              <span className="grid size-10 shrink-0 place-items-center rounded-full bg-[var(--purple)] text-xs font-bold text-white">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <p className="mt-2 text-xs font-bold uppercase tracking-[0.12em] text-[var(--muted)] md:mt-4">
+                {experience.period}
+              </p>
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-              Experience
-            </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              My journey through internships, research, and leadership roles
-            </p>
+
+            <article className="surface-card p-6 sm:p-8 md:p-10">
+              <div className="grid gap-4 md:grid-cols-[1fr_auto] md:items-start">
+                <div>
+                  <h2 className="text-2xl font-semibold tracking-[-0.035em] text-[var(--ink)] md:text-3xl">
+                    {experience.company}
+                  </h2>
+                  <p className="mt-2 font-semibold text-[var(--purple)]">
+                    {experience.role}
+                  </p>
+                </div>
+                {index === 0 && (
+                  <span className="inline-flex w-fit items-center gap-2 rounded-full bg-[#dff4eb] px-3 py-1.5 text-xs font-bold text-[var(--green)]">
+                    <span className="size-1.5 rounded-full bg-current" /> Current
+                  </span>
+                )}
+              </div>
+
+              <p className="mt-6 max-w-3xl text-base leading-7 text-[var(--muted)] md:text-lg">
+                {experience.summary}
+              </p>
+              <ul className="mt-6 grid gap-3 text-sm leading-6 text-[var(--ink)]">
+                {experience.achievements.map((achievement) => (
+                  <li className="flex max-w-4xl gap-3" key={achievement}>
+                    <span className="mt-2.5 size-1.5 shrink-0 rounded-full bg-[var(--gold)]" />
+                    {achievement}
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-8 flex flex-col gap-5 border-t border-[var(--line)] pt-6 sm:flex-row sm:items-end sm:justify-between">
+                <div className="flex flex-wrap gap-2">
+                  {experience.technologies.map((technology) => (
+                    <span className="tag" key={technology}>
+                      {technology}
+                    </span>
+                  ))}
+                </div>
+                {experience.links && (
+                  <div className="flex shrink-0 gap-4 text-sm font-semibold">
+                    {experience.links.map((link) => (
+                      <a
+                        className="text-link"
+                        href={link.href}
+                        key={link.href}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {link.label} ↗
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </article>
+          </li>
+        ))}
+      </ol>
+
+      <section className="mt-16 grid gap-6 rounded-3xl bg-[var(--ink)] p-7 text-white sm:p-10 md:grid-cols-[0.7fr_1.3fr] md:p-12">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/55">
+            Leadership
+          </p>
+          <p className="mt-4 text-sm text-white/55">{leadership.period}</p>
+        </div>
+        <div>
+          <h2 className="text-3xl font-semibold tracking-[-0.04em] md:text-4xl">
+            {leadership.role}, {leadership.organization}
+          </h2>
+          <p className="mt-5 max-w-3xl text-base leading-7 text-white/70 md:text-lg">
+            {leadership.description}
+          </p>
+          <div className="mt-7 flex flex-wrap gap-5 text-sm font-semibold">
+            {leadership.links.map((link) => (
+              <a
+                href={link.href}
+                key={link.href}
+                target="_blank"
+                rel="noreferrer"
+                className="text-white underline decoration-white/30 underline-offset-4 hover:decoration-white"
+              >
+                {link.label} ↗
+              </a>
+            ))}
           </div>
         </div>
-      </div>
-
-      {/* Experience Grid */}
-      <div className="relative max-w-7xl mx-auto px-6 md:px-12 pb-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {experiences.map((exp, idx) => (
-            <ExpandableCard
-              key={idx}
-              {...exp}
-              expanded={activeIndex === idx}
-              onClick={() => setActiveIndex(activeIndex === idx ? null : idx)}
-            />
-          ))}
-        </div>
-      </div>
+      </section>
     </main>
   );
 }
