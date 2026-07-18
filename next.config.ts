@@ -8,6 +8,9 @@ const withMDX = createMDX({
 const nextConfig: NextConfig = {
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
   outputFileTracingRoot: process.cwd(),
+  images: {
+    qualities: [75, 90],
+  },
 };
 
 export default withMDX(nextConfig);

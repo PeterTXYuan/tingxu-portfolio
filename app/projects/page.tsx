@@ -4,7 +4,7 @@ import PageIntro from "@/components/PageIntro";
 import { projects } from "@/data/portfolio";
 
 export const metadata: Metadata = {
-  title: "Selected Work",
+  title: "Projects",
   description:
     "Selected software engineering and machine learning work by Tingxu Yuan.",
 };
@@ -13,7 +13,7 @@ export default function ProjectsPage() {
   return (
     <main className="page-shell">
       <PageIntro
-        eyebrow="Selected work"
+        eyebrow="Selected projects"
         title="Projects measured by what changed."
         description="A focused collection of product engineering, machine learning research, and enterprise systems work. Each project foregrounds the problem, contribution, and measurable result."
       />

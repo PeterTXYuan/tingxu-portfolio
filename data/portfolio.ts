@@ -7,11 +7,41 @@ export const profile = {
   emailHref: "mailto:yuantingxu20050424@gmail.com",
   github: "https://github.com/PeterTXYuan",
   linkedin: "https://www.linkedin.com/in/tingxu-yuan-a2bab5333/",
+  portrait: "/images/tingxu-portrait.jpg",
+  philosophy: {
+    lead: "Build with depth,",
+    clarity: "lead with clarity.",
+    continuation:
+      "and leave every system—and every team—better than you found it.",
+  },
   headline:
     "Software engineer working across full-stack systems, applied machine learning, and test infrastructure.",
   summary:
     "Math and Computer Science undergraduate with experience in full-stack development, machine learning, software testing, and data analysis. I enjoy turning ambiguous problems into reliable, scalable products.",
 };
+
+export const proofPoints = [
+  {
+    name: "Xiaomi",
+    detail: "Software Test Engineering",
+    meta: "Current",
+  },
+  {
+    name: "University of Washington",
+    detail: "ACMS undergraduate",
+    meta: "3.77 GPA",
+  },
+  {
+    name: "IEEE PPRAI",
+    detail: "Research Co-author",
+    meta: "Publication",
+  },
+  {
+    name: "CEN",
+    detail: "President",
+    meta: "60+ members led",
+  },
+];
 
 export const education = {
   school: "University of Washington",

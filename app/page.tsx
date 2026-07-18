@@ -1,12 +1,17 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import PhotoWall from "@/components/PhotoWall";
-import { education, experiences, profile } from "@/data/portfolio";
+import {
+  experiences,
+  profile,
+  proofPoints,
+} from "@/data/portfolio";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -30,10 +35,13 @@ export default function HomePage() {
           };
 
           if (reduceMotion) {
-            gsap.set("[data-home-reveal], [data-home-stat]", {
-              autoAlpha: 1,
-              clearProps: "transform",
-            });
+            gsap.set(
+              "[data-home-reveal], [data-home-stat], [data-proof-label], [data-proof-item]",
+              {
+                autoAlpha: 1,
+                clearProps: "transform",
+              },
+            );
             return;
           }
 
@@ -59,7 +67,7 @@ export default function HomePage() {
               "<0.18",
             )
             .from(
-              "[data-hero-card]",
+              "[data-hero-portrait]",
               {
                 autoAlpha: 0,
                 x: desktop ? 42 : 0,
@@ -70,8 +78,8 @@ export default function HomePage() {
             );
 
           if (desktop) {
-            gsap.to("[data-hero-card]", {
-              y: -42,
+            gsap.to("[data-hero-portrait]", {
+              y: -30,
               ease: "none",
               scrollTrigger: {
                 trigger: "[data-hero]",
@@ -81,6 +89,28 @@ export default function HomePage() {
               },
             });
           }
+
+          const proofTimeline = gsap.timeline({
+            defaults: { duration: 0.7, ease: "power3.out" },
+            scrollTrigger: {
+              trigger: "[data-proof]",
+              start: "top 88%",
+              toggleActions: "play none none reverse",
+            },
+          });
+
+          proofTimeline
+            .from("[data-proof-label]", { autoAlpha: 0, y: 20 })
+            .from(
+              "[data-proof-item]",
+              {
+                autoAlpha: 0,
+                y: 28,
+                stagger: 0.08,
+                duration: 0.6,
+              },
+              "<0.16",
+            );
 
           const profileTimeline = gsap.timeline({
             defaults: { duration: 0.75, ease: "power3.out" },
@@ -102,6 +132,7 @@ export default function HomePage() {
               { autoAlpha: 0, y: 24, stagger: 0.1, duration: 0.55 },
               "<0.25",
             );
+
         },
       );
 
@@ -117,32 +148,31 @@ export default function HomePage() {
         className="relative overflow-hidden border-b border-[var(--line)]"
       >
         <div className="editorial-grid pointer-events-none absolute inset-0" />
-        <div className="relative mx-auto grid min-h-[calc(100svh-4.5rem)] w-full max-w-[88rem] gap-12 px-5 py-16 sm:px-8 md:px-12 md:py-24 lg:grid-cols-[minmax(0,1.25fr)_minmax(20rem,0.65fr)] lg:items-center">
+        <div className="relative mx-auto grid min-h-[calc(100svh-4.5rem)] w-full max-w-[88rem] gap-8 px-5 py-8 sm:gap-12 sm:px-8 sm:py-14 md:px-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(22rem,0.72fr)] lg:items-center lg:py-16">
           <div>
             <p data-hero-eyebrow className="eyebrow">
               Seattle · Software engineering
             </p>
-            <h1 className="mt-7 max-w-5xl text-[clamp(3.4rem,8vw,7.8rem)] font-semibold leading-[0.88] tracking-[-0.065em] text-[var(--ink)]">
+            <h1 className="mt-6 max-w-5xl text-[clamp(3.15rem,7vw,7rem)] font-semibold leading-[0.9] tracking-[-0.065em] text-[var(--ink)] sm:mt-7">
               <span className="block overflow-hidden pb-[0.08em]">
                 <span data-hero-line className="block">
-                  Building reliable
-                </span>
-              </span>
-              <span className="block overflow-hidden pb-[0.08em]">
-                <span data-hero-line className="block">
-                  systems from
+                  {profile.philosophy.lead}
                 </span>
               </span>
               <span className="block overflow-hidden pb-[0.08em]">
                 <span data-hero-line className="block text-[var(--purple)]">
-                  idea to impact.
+                  {profile.philosophy.clarity}
                 </span>
               </span>
             </h1>
-            <p
+            <blockquote
               data-hero-copy
-              className="mt-8 max-w-3xl text-lg leading-8 text-[var(--muted)] md:text-xl md:leading-9"
+              className="mt-6 max-w-3xl border-l-2 border-[var(--gold)] pl-5 text-xl font-medium leading-8 tracking-[-0.02em] text-[var(--muted)] sm:mt-8 md:text-2xl md:leading-9"
             >
+              {profile.philosophy.continuation}
+            </blockquote>
+
+            <p className="mt-6 max-w-2xl text-sm leading-6 text-[var(--muted)] sm:text-base sm:leading-7">
               {profile.headline} Currently contributing to AI-driven mobile
               test automation at Xiaomi while studying ACMS at the University
               of Washington.
@@ -154,7 +184,7 @@ export default function HomePage() {
                 data-hero-action
                 className="inline-flex items-center gap-2 rounded-full bg-[var(--ink)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[var(--purple)]"
               >
-                Explore selected work <span aria-hidden="true">↗</span>
+                Explore projects <span aria-hidden="true">↗</span>
               </Link>
               <Link
                 href="/resume"
@@ -166,44 +196,83 @@ export default function HomePage() {
             </div>
           </div>
 
-          <aside
-            data-hero-card
-            className="surface-card overflow-hidden will-change-transform"
-            aria-label="Current profile"
+          <figure
+            data-hero-portrait
+            className="relative order-first min-h-64 overflow-hidden rounded-[1.75rem] border border-[var(--line)] bg-white shadow-[0_1.5rem_4rem_rgb(23_21_27_/_0.1)] will-change-transform sm:min-h-[34rem] lg:order-none lg:min-h-[calc(100svh-12.5rem)] lg:max-h-[46rem]"
           >
-            <div className="border-b border-[var(--line)] bg-[var(--purple)] p-6 text-white md:p-8">
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/65">
-                Now
-              </p>
-              <h2 className="mt-8 text-3xl font-semibold tracking-[-0.04em]">
-                {currentRole.company}
-              </h2>
-              <p className="mt-2 text-base text-white/75">{currentRole.role}</p>
-              <p className="mt-6 text-sm leading-6 text-white/75">
-                {currentRole.summary}
-              </p>
-            </div>
-            <div className="grid gap-7 p-6 md:p-8">
+            <Image
+              src={profile.portrait}
+              alt="Portrait of Tingxu Yuan"
+              fill
+              priority
+              sizes="(max-width: 1024px) 100vw, 38vw"
+              className="object-cover object-[center_27%] sm:object-top"
+              quality={90}
+            />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
+            <figcaption className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5 text-white sm:p-7">
               <div>
-                <p className="text-xs font-bold uppercase tracking-[0.14em] text-[var(--muted)]">
-                  Education
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/55">
+                  Now at {currentRole.company}
                 </p>
-                <p className="mt-3 font-semibold text-[var(--ink)]">
-                  {education.school}
-                </p>
-                <p className="mt-1 text-sm leading-6 text-[var(--muted)]">
-                  {education.degree}
+                <p className="mt-2 text-lg font-semibold tracking-[-0.02em] sm:text-xl">
+                  {currentRole.role}
                 </p>
               </div>
-              <div className="flex flex-wrap gap-2">
-                {currentRole.technologies.slice(0, 6).map((technology) => (
-                  <span className="tag" key={technology}>
-                    {technology}
-                  </span>
-                ))}
-              </div>
+              <span className="mb-1 hidden size-2 shrink-0 rounded-full bg-[#55d6a8] shadow-[0_0_0_5px_rgb(85_214_168_/_0.18)] sm:block" />
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section
+        data-proof
+        className="border-b border-white/10 bg-[var(--ink)] text-white"
+        aria-labelledby="proof-heading"
+      >
+        <div className="mx-auto w-full max-w-[88rem] px-5 py-12 sm:px-8 md:px-12 md:py-16">
+          <div
+            data-proof-label
+            className="mb-8 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between"
+          >
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.17em] text-white/50">
+                Selected proof
+              </p>
+              <h2
+                id="proof-heading"
+                className="mt-3 text-2xl font-semibold tracking-[-0.035em]"
+              >
+                Experience that compounds.
+              </h2>
             </div>
-          </aside>
+            <p className="text-sm text-white/45">Signals, not slogans.</p>
+          </div>
+
+          <ol className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 lg:grid-cols-4">
+            {proofPoints.map((proof, index) => (
+              <li
+                data-proof-item
+                key={proof.name}
+                className="group min-h-48 bg-[var(--ink)] p-5 transition-colors hover:bg-[color-mix(in_srgb,var(--purple)_38%,var(--ink))] sm:min-h-52 sm:p-6 md:p-7"
+              >
+                <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+                  <span className="text-xs font-bold tracking-[0.16em] text-white/35">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className="rounded-full border border-white/15 px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-[0.12em] text-white/55">
+                    {proof.meta}
+                  </span>
+                </div>
+                <h3 className="mt-8 text-lg font-semibold tracking-[-0.03em] text-white sm:mt-12 sm:text-xl md:text-2xl">
+                  {proof.name}
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-white/50">
+                  {proof.detail}
+                </p>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
