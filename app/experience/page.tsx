@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import PageIntro from "@/components/PageIntro";
 import { experiences, leadership } from "@/data/portfolio";
 
@@ -90,14 +91,24 @@ export default function ExperiencePage() {
         ))}
       </ol>
 
-      <section className="mt-16 grid gap-6 rounded-3xl bg-[var(--ink)] p-7 text-white sm:p-10 md:grid-cols-[0.7fr_1.3fr] md:p-12">
-        <div>
-          <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/55">
-            Leadership
-          </p>
-          <p className="mt-4 text-sm text-white/55">{leadership.period}</p>
+      <section className="mt-16 grid overflow-hidden rounded-3xl border border-[var(--line)] text-white shadow-[0_1.5rem_4rem_rgb(23_21_27_/_0.1)] md:grid-cols-2">
+        <div className="relative min-h-72 overflow-hidden p-7 sm:min-h-96 sm:p-10 md:min-h-[28rem] md:p-12">
+          <Image
+            src={leadership.image}
+            alt={leadership.imageAlt}
+            fill
+            sizes="(max-width: 768px) 100vw, 44vw"
+            className="object-cover object-top"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/10 to-black/30" />
+          <div className="relative z-10">
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/75">
+              Leadership
+            </p>
+            <p className="mt-4 text-sm text-white/75">{leadership.period}</p>
+          </div>
         </div>
-        <div>
+        <div className="flex flex-col justify-center bg-[var(--ink)] p-7 sm:p-10 md:min-h-[28rem] md:p-12">
           <h2 className="text-3xl font-semibold tracking-[-0.04em] md:text-4xl">
             {leadership.role}, {leadership.organization}
           </h2>

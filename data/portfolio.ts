@@ -271,12 +271,14 @@ export const leadership = {
   role: "President",
   organization: "UW China Entrepreneur Network",
   period: "May 2025 - May 2026",
+  image: "/images/cen-uw-leadership.png",
+  imageAlt: "UW China Entrepreneur Network team outside Paccar Hall",
   description:
     "Led 60+ members in organizing workshops and networking events with an average attendance of 100+ people.",
   links: [
     {
       label: "Organization profile",
-      href: "https://huskylink.washington.edu/organization/cenuw",
+      href: "https://www.cenuw.com/",
     },
     { label: "Event overview", href: "/CEN-slides.pdf" },
   ],
